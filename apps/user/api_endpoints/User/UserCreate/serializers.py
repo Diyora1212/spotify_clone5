@@ -3,13 +3,14 @@ import os
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from dotenv import load_dotenv
+from rest_framework import serializers
 
 load_dotenv()
 
 from django.core.mail import send_mail
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import EmailField, CharField, ImageField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer
 
 from apps.user.models import User
 from apps.user.utils import generate_token
@@ -59,3 +60,12 @@ class UserCreateSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', "avatar")
+
+
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+# class ResetPasswordSerializer(serializers.Serializer):
+#     password1 = serializers.CharField()
+#     password2 = serializers.CharField()

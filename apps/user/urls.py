@@ -11,7 +11,7 @@ from apps.user.api_endpoints.Follow import (
     UserArtistFollowView,
     UserArtistUnFollowView,
 )
-from apps.user.api_endpoints.User import UserCreateView, UserActivateView
+from apps.user.api_endpoints.User import UserCreateView, UserActivateView, ForgotPasswordAPIView, ResetPasswordView
 from apps.user.views import MyCustomObtainTokenView
 
 app_name = "user"
@@ -21,6 +21,8 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path('register/', UserCreateView.as_view(), name="user-create"),
     path('user-activate/<str:token>', UserActivateView.as_view(), name="user-activate"),
+    path('user-password-forget/<str:token>', ForgotPasswordAPIView.as_view(), name="forgot-password" ),
+    path('user-password-reset/<str:token>', ResetPasswordView.as_view(), name="reset-password"),
     path("user-follow/", UserFollowView.as_view()),
     path("user-unfollow/", UserUnfollowView.as_view()),
     path("artist-follow/", UserArtistFollowView.as_view()),
